@@ -1,0 +1,1 @@
+from .inkbird import InkbirdIBSTH

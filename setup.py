@@ -8,8 +8,8 @@ setup(
     author='sittingfrog',
     license='MIT',
     packages=['inkbird'],
-    install_requires=['bluepy',
-                      'wheel',                     
+    install_requires=['wheel',
+                      'bluepy',                     
                       ],
 
     classifiers=[

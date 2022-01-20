@@ -1,0 +1,13 @@
+sensor:
+	sensor_type: Inkbird_IBSTH2
+	mac_address: 49:42:08:00:5C:61
+	name: brigham
+	label: red
+
+
+sensor:
+	sensor_type: Inkbird_IBSTH2
+	mac_address: '49:42:08:00:50:D7'
+	name: nanuk
+	label: blue
+	

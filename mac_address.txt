@@ -1,8 +1,0 @@
-brigham:
-	label: red
-	mac: '49:42:08:00:5C:61'
-
-nanuk:
-	label: blue
-	mac: '49:42:08:00:50:D7'
-	

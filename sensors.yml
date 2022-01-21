@@ -1,13 +1,17 @@
-sensor:
-	sensor_type: Inkbird_IBSTH2
-	mac_address: 49:42:08:00:5C:61
-	name: brigham
-	label: red
+--- # brigham
+	sensor_type: 'Inkbird_IBSTH2'
+	mac_address: '49:42:08:00:5C:61'
+	name: 'brigham'
+	label: 'red'
 
-
-sensor:
-	sensor_type: Inkbird_IBSTH2
+--- # nanuk
+	sensor_type: 'Inkbird_IBSTH2'
 	mac_address: '49:42:08:00:50:D7'
-	name: nanuk
-	label: blue
+	name: 'nanuk'
+	label: 'blue'
 	
+--- # spare
+	sensor_type: Inkbird_IBSTH2
+	mac_address: '49:42:08:00:5E:A4'
+	name: 'nanuk'
+	label: 'none'

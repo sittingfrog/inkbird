@@ -1,4 +1,4 @@
-print('Running test.py...\n')
+print('\nRunning test.py...\n')
 
 mac_addresses = ('49:42:08:00:5C:61', '49:42:08:00:50:D7')
 MAC_ADDRESS_INDEX = 0

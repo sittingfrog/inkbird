@@ -8,4 +8,5 @@ sensor_type = 'Inkbird_IBSTH2'
 
 inkbird = InkbirdIBSTH(mac_address, sensor_type)
 reading = inkbird.get_ibsth_data()
-print(reading)
+for k,v in reading.items():
+    print(f'{k}: {v}')

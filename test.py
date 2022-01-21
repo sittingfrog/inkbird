@@ -1,3 +1,5 @@
+print('Running test.py...\n')
+
 mac_addresses = ('49:42:08:00:5C:61', '49:42:08:00:50:D7')
 MAC_ADDRESS_INDEX = 0
 
@@ -8,5 +10,5 @@ sensor_type = 'Inkbird_IBSTH2'
 
 inkbird = InkbirdIBSTH(mac_address, sensor_type)
 reading = inkbird.get_ibsth_data()
-for k,v in reading.items():
-    print(f'{k}: {v}')
+print('Reading successful.\n')
+[print(f'{k}: {v}') for k,v in reading.items()]

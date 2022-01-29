@@ -15,21 +15,21 @@ class InkbirdIBSTH():
     def __init__(self, mac_address, sensor_type):
         self.mac_address = mac_address
         self.sensor_type = sensor_type
+        self.peripheral = btle.Peripheral(mac_address)
+        self.sensor_characteristics = self._read_sensor_characteristics()
         return
     
-    def get_ibsth_data(self):
-        peripheral = btle.Peripheral(self.mac_address)
-
+    def read_sensor(self):
         if self.sensor_type == 'Inkbird_IBSTH1':
-            characteristic = peripheral.readCharacteristic(self.IBSTH1_CHARACTERISTIC)
-            return self._decodeSensorData(self.IBSTH1_FORMAT, characteristic)
+            characteristic = self.peripheral.readCharacteristic(self.IBSTH1_CHARACTERISTIC)
+            return self._decode_sensor_data(self.IBSTH1_FORMAT, characteristic)
         elif self.sensor_type == 'Inkbird_IBSTH2':
-            characteristic = peripheral.readCharacteristic(self.IBSTH2_CHARACTERISTIC)
-            return self._decodeSensorData(self.IBSTH2_FORMAT, characteristic)
+            characteristic = self.peripheral.readCharacteristic(self.IBSTH2_CHARACTERISTIC)
+            return self._decode_sensor_data(self.IBSTH2_FORMAT, characteristic)
         else:
             return None
 
-    def _decodeSensorData(self, format_binary, valueBinary):
+    def _decode_sensor_data(self, format_binary, valueBinary):
         (temp, humid, unknown1, unknown2, unknown3) = struct.unpack(format_binary, valueBinary)
         temperature_celcius = float(temp) / 100
         sensorValue = {
@@ -42,3 +42,6 @@ class InkbirdIBSTH():
                 'unknown3': unknown3,
             }
         return sensorValue
+    
+    def _read_sensor_characteristics(self):
+        return self.peripheral.getCharacteristics()

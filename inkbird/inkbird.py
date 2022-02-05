@@ -15,7 +15,6 @@ class InkbirdIBSTH():
     def __init__(self, mac_address, sensor_type):
         self.mac_address = mac_address
         self.sensor_type = sensor_type
-        self.sensor_characteristics = self._read_sensor_characteristics()
         return
     
     def _peripheral(self):

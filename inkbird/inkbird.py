@@ -15,19 +15,25 @@ class InkbirdIBSTH():
     def __init__(self, mac_address, sensor_type):
         self.mac_address = mac_address
         self.sensor_type = sensor_type
-        self.peripheral = btle.Peripheral(mac_address)
         self.sensor_characteristics = self._read_sensor_characteristics()
         return
     
+    def _peripheral(self):
+        return btle.Peripheral(self.mac_address)
+    
     def read_sensor(self):
-        if self.sensor_type == 'Inkbird_IBSTH1':
-            characteristic = self.peripheral.readCharacteristic(self.IBSTH1_CHARACTERISTIC)
-            return self._decode_sensor_data(self.IBSTH1_FORMAT, characteristic)
-        elif self.sensor_type == 'Inkbird_IBSTH2':
-            characteristic = self.peripheral.readCharacteristic(self.IBSTH2_CHARACTERISTIC)
-            return self._decode_sensor_data(self.IBSTH2_FORMAT, characteristic)
-        else:
-            return None
+        try:
+            peripheral = self._peripheral()
+            if self.sensor_type == 'Inkbird_IBSTH1':
+                characteristic = peripheral.readCharacteristic(self.IBSTH1_CHARACTERISTIC)
+                return self._decode_sensor_data(self.IBSTH1_FORMAT, characteristic)
+            elif self.sensor_type == 'Inkbird_IBSTH2':
+                characteristic = peripheral.readCharacteristic(self.IBSTH2_CHARACTERISTIC)
+                return self._decode_sensor_data(self.IBSTH2_FORMAT, characteristic)
+            else:
+                raise(f'Sensor type must be one of: {self.VALID_SENSOR_TYPES}')
+        except:
+            print('Failed ro read sensor for {self.mac_address}')
 
     def _decode_sensor_data(self, format_binary, valueBinary):
         (temp, humid, unknown1, unknown2, unknown3) = struct.unpack(format_binary, valueBinary)
@@ -44,4 +50,10 @@ class InkbirdIBSTH():
         return sensorValue
     
     def _read_sensor_characteristics(self):
-        return self.peripheral.getCharacteristics()
+        try:
+            peripheral = self._peripheral()
+            characteristics = peripheral.getCharacteristics()
+            peripheral.disconnect()
+            return characteristics
+        except:
+            print(f'Failed to read characteristics for {self.mac_address}')

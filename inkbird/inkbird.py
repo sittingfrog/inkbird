@@ -15,6 +15,7 @@ class InkbirdIBSTH():
     def __init__(self, mac_address, sensor_type, humidity_offset=0):
         self.mac_address = mac_address
         self.sensor_type = sensor_type
+        self.humidity_offset = humidity_offset
         return
     
     def _peripheral(self):
@@ -41,7 +42,7 @@ class InkbirdIBSTH():
                 'sensor_type': self.sensor_type,
                 'temperature_celcius': temperature_celcius,
                 'temperature_farenheit': round((temperature_celcius*1.8) + 32, 2),
-                'humidity': (float(humid) / 100) + humidity_offset,
+                'humidity': (float(humid) / 100) + self.humidity_offset,
                 'unknown1': unknown1,
                 'unknown2': unknown2,
                 'unknown3': unknown3,

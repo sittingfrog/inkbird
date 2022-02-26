@@ -12,7 +12,7 @@ class InkbirdIBSTH():
     IBSTH2_CHARACTERISTIC = 0x24
     IBSTH2_FORMAT = '<hhBBB'
     
-    def __init__(self, mac_address, sensor_type):
+    def __init__(self, mac_address, sensor_type, humidity_offset=0):
         self.mac_address = mac_address
         self.sensor_type = sensor_type
         return
@@ -32,7 +32,7 @@ class InkbirdIBSTH():
             else:
                 raise(f'Sensor type must be one of: {self.VALID_SENSOR_TYPES}')
         except:
-            print('Failed ro read sensor for {self.mac_address}')
+            print(f'Failed to read sensor for {self.mac_address}')
 
     def _decode_sensor_data(self, format_binary, valueBinary):
         (temp, humid, unknown1, unknown2, unknown3) = struct.unpack(format_binary, valueBinary)
@@ -41,7 +41,7 @@ class InkbirdIBSTH():
                 'sensor_type': self.sensor_type,
                 'temperature_celcius': temperature_celcius,
                 'temperature_farenheit': round((temperature_celcius*1.8) + 32, 2),
-                'humidity': float(humid) / 100,
+                'humidity': (float(humid) / 100) + humidity_offset,
                 'unknown1': unknown1,
                 'unknown2': unknown2,
                 'unknown3': unknown3,

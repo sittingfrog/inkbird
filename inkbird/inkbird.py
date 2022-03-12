@@ -1,5 +1,6 @@
 # coding=UTF-8
 
+import logging
 from bluepy import btle
 import struct
 
@@ -31,9 +32,11 @@ class InkbirdIBSTH():
                 characteristic = peripheral.readCharacteristic(self.IBSTH2_CHARACTERISTIC)
                 return self._decode_sensor_data(self.IBSTH2_FORMAT, characteristic)
             else:
-                raise(f'Sensor type must be one of: {self.VALID_SENSOR_TYPES}')
+                error_message = f'Sensor type must be one of: {self.VALID_SENSOR_TYPES}'
+                logging.error(error_message)
+                raise(error_message)
         except:
-            print(f'Failed to read sensor for {self.mac_address}')
+            logging.warning(f'Failed to read sensor for {self.mac_address}')
 
     def _decode_sensor_data(self, format_binary, valueBinary):
         (temp, humid, unknown1, unknown2, unknown3) = struct.unpack(format_binary, valueBinary)
@@ -43,9 +46,6 @@ class InkbirdIBSTH():
                 'temperature_celcius': temperature_celcius,
                 'temperature_farenheit': round((temperature_celcius*1.8) + 32, 2),
                 'humidity': (float(humid) / 100) + self.humidity_offset,
-                'unknown1': unknown1,
-                'unknown2': unknown2,
-                'unknown3': unknown3,
             }
         return sensorValue
     
@@ -56,4 +56,4 @@ class InkbirdIBSTH():
             peripheral.disconnect()
             return characteristics
         except:
-            print(f'Failed to read characteristics for {self.mac_address}')
+            logging.warning(f'Failed to read characteristics for {self.mac_address}')

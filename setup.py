@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='inkbird',
-    version='0.2.0',    
+    version='0.3.0',    
     description='Inkbird sensor reading package',
     url='https://github.com/sittingfrog/inkbird',
     author='sittingfrog',

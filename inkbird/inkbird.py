@@ -45,7 +45,7 @@ class InkbirdIBSTH():
                 'sensor_type': self.sensor_type,
                 'temperature_celcius': temperature_celcius,
                 'temperature_farenheit': round((temperature_celcius*1.8) + 32, 2),
-                'humidity': (float(humid) / 100) + self.humidity_offset,
+                'humidity': round((float(humid) / 100) + self.humidity_offset, 2),
             }
         return sensorValue
     

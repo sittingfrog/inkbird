@@ -1,2 +1,2 @@
 (provide "inkbird")
-(env/prepend-to-pathlist "PATH" "./venv/bin/")
+(env/prepend-to-pathlist "PATH" (expand-path "./venv/bin/"))

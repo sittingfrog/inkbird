@@ -3,4 +3,4 @@ __pycache__/*
 inkbird/__pycache__/*
 *.egg-info
 *.swp
-.shadowenv.d/*
+.shadowenv.d/
